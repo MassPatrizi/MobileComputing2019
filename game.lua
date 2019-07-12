@@ -64,7 +64,7 @@ end
 local function fireBullet()
  
     audio.play(shot)
-    local newBullet = display.newImageRect( mainGroup, "rock.png", 14, 40 )
+    local newBullet = display.newImageRect( mainGroup, "bullet.png", 14, 40 )
     physics.addBody( newBullet, "dynamic", { isSensor=true } )
     newBullet.isBullet = true
     newBullet.myName = "bullet"
@@ -284,7 +284,7 @@ function scene:create( event )
     --physics.addBody( topWall, "static", {bounce = 0.0, friction = 2} )
     physics.addBody( bottomWall, "static", { isSensor=true }, {bounce = 0.0, friction = 2} )
 
-	player = display.newImageRect( mainGroup, "tr2.png", 128, 128 )
+    player = display.newImageRect( mainGroup, "spaceship.png", 128, 128 )
     player.x = display.contentCenterX
     player.y = display.contentHeight - 100
     physics.addBody( player, "dynamic", { radius=60, isSensor=false} )

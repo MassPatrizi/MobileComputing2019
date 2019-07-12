@@ -49,15 +49,15 @@ _H = display.contentHeight -- Get the height of the screen
 scrollSpeed = 2 -- Set Scroll Speed of background
 	
 -- Add First Background
-bg1 = display.newImageRect(sceneGroup, "spacebg2.jpg", 800, 1400)
+bg1 = display.newImageRect(sceneGroup, "menubg.jpg", 800, 1400)
 bg1.x = _W*0.5; bg1.y = _H/2
 	
 -- Add Second Background
-bg2 = display.newImageRect(sceneGroup, "spacebg2.jpg", 800, 1400)
+bg2 = display.newImageRect(sceneGroup, "menubg.jpg", 800, 1400)
 bg2.x = _W*0.5; bg2.y = bg1.y+1400
 	
 -- Add Third Background
-bg3 = display.newImageRect(sceneGroup, "spacebg2.jpg", 800, 1400)
+bg3 = display.newImageRect(sceneGroup, "menubg.jpg", 800, 1400)
 bg3.x = _W*0.5; bg3.y = bg2.y+1400
 
 
