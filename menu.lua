@@ -20,7 +20,7 @@ local highScoresSound=audio.loadSound("audio/Videogame_Menu_Button_Clicking_Soun
 
 local function gotoGame()
 	audio.play(playSound)
-    composer.gotoScene( "game" , { time=800, effect="crossFade"})
+	composer.gotoScene( "game" , { time=800, effect="crossFade"})
 end
  
 local function gotoHighScores()
@@ -28,21 +28,17 @@ local function gotoHighScores()
     composer.gotoScene( "highscores" , { time=800, effect="crossFade" } )
 end
 
-
-	
-
-
 -- create()
 function scene:create( event )
 
 	local sceneGroup = self.view
 	-- Code here runs when the scene is first created but has not yet appeared on screen
 
-	--local background = display.newImageRect( sceneGroup, "spacebg.jpg", 800, 1400 )
-    --background.x = display.contentCenterX
-	--background.y = display.contentCenterY
+	local background = display.newImageRect( sceneGroup, "menubg2.jpg", 800, 1400 )
+    background.x = display.contentCenterX
+	background.y = display.contentCenterY
 	
-	
+--[[
 -- Set Variables
 _W = display.contentWidth -- Get the width of the screen
 _H = display.contentHeight -- Get the height of the screen
@@ -59,23 +55,27 @@ bg2.x = _W*0.5; bg2.y = bg1.y+1400
 -- Add Third Background
 bg3 = display.newImageRect(sceneGroup, "menubg.jpg", 800, 1400)
 bg3.x = _W*0.5; bg3.y = bg2.y+1400
+]]--
 
+local title = display.newImageRect( sceneGroup, "title.png", 400, 200)
 
-local title = display.newText( sceneGroup, "ENDLESS STARS", display.contentCenterX, 700, "SFProDisplay-Regular.ttf", 60 )
+--local title = display.newText( sceneGroup, "ENDLESS\n STARS", display.contentCenterX, 700, "Riffic.ttf", 70 )
     title.x = display.contentCenterX
 	title.y = 200
-	
-local playButton = display.newText( sceneGroup, "Play", display.contentCenterX, 700, "SFProDisplay-Regular.ttf", 44 )
+
+
+local playButton = display.newText( sceneGroup, "Play", display.contentCenterX, 600, "Riffic.ttf", 44 )
 playButton:setFillColor( 0.82, 0.86, 1 )
  
-local highScoresButton = display.newText( sceneGroup, "High Scores", display.contentCenterX, 810, "SFProDisplay-Regular.ttf", 44 )
-highScoresButton:setFillColor( 0.75, 0.78, 1 )
+local highScoresButton = display.newText( sceneGroup, "High Scores", display.contentCenterX, 700, "Riffic.ttf", 44 )
+highScoresButton:setFillColor( 0.82, 0.86, 1 )
 	
 playButton:addEventListener( "tap", gotoGame)
 highScoresButton:addEventListener( "tap", gotoHighScores)
 	
 end
 
+--[[
 local function move(event)
 	-- move backgrounds to the left by scrollSpeed, default is 2
 	bg1.y = bg1.y + scrollSpeed
@@ -97,7 +97,7 @@ end
 	
 -- Create a runtime event to move backgrounds
 Runtime:addEventListener( "enterFrame", move )
-
+]]--
 
 -- show()
 function scene:show( event )

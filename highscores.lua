@@ -78,26 +78,26 @@ function scene:create( event )
 	-- Save the scores
     saveScores()
  
-    local background = display.newImageRect( sceneGroup, "highscoresbg.png", 800, 1400 )
+    local background = display.newImageRect( sceneGroup, "highscoresbg.jpg", 800, 1400 )
     background.x = display.contentCenterX
     background.y = display.contentCenterY
      
-	local highScoresHeader = display.newText( sceneGroup, "High Scores", display.contentCenterX, 100, "KGDoYouLoveMe.ttf", 44 )
+	local highScoresHeader = display.newText( sceneGroup, "High Scores", display.contentCenterX, 100, "Riffic.ttf", 44 )
 	
 	for i = 1, 10 do
         if ( scoresTable[i] ) then
             local yPos = 150 + ( i * 56 )
  
-            local rankNum = display.newText( sceneGroup, i .. ")", display.contentCenterX-50, yPos, "KGDoYouLoveMe.ttf", 36 )
+            local rankNum = display.newText( sceneGroup, i .. ")", display.contentCenterX-50, yPos, "Riffic.ttf", 36 )
             rankNum:setFillColor( 0.8 )
             rankNum.anchorX = 1
  
-            local thisScore = display.newText( sceneGroup, scoresTable[i], display.contentCenterX-30, yPos, "KGDoYouLoveMe.ttf", 36 )
+            local thisScore = display.newText( sceneGroup, scoresTable[i], display.contentCenterX-30, yPos, "Riffic.ttf", 36 )
             thisScore.anchorX = 0
         end
 	end
 	
-	local menuButton = display.newText( sceneGroup, "Menu", display.contentCenterX, 810, "KGDoYouLoveMe.ttf", 44 )
+	local menuButton = display.newText( sceneGroup, "Menu", display.contentCenterX, 810, "Riffic.ttf", 44 )
     menuButton:setFillColor( 0.75, 0.78, 1 )
 	menuButton:addEventListener( "tap", gotoMenu )
 	

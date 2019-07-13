@@ -197,6 +197,13 @@ local function onCollision( event )
     end
 end
 
+local function goToMenu()
+    composer.gotoScene("menu", {time = 800, effect="crossFade"})
+    display.remove(resume) --rimuove la scritta di pausa
+    display.remove(resume2)
+    display.remove(mainMenu)
+end
+
 local function pauseFunction(event)
 
     if event.phase == "ended" then
@@ -205,15 +212,28 @@ local function pauseFunction(event)
             physics:start()
             player:addEventListener( "tap", fireBullet )
             player:addEventListener( "touch", dragPlayer )
-            gameLoopTimer = timer.performWithDelay( 1000, gameLoop, 0 )
-            --resume.destroy --funzione che canella la scritta, da implementare
+            gameLoopTimer = timer.performWithDelay( 1000, gameLoop, 0 ) --ripristina lo spawn dei nemici
+            display.remove(resume) --rimuove la scritta di pausa
+            display.remove(resume2)
+            display.remove(mainMenu)
+            bg1.fill.effect = ""
+            bg2.fill.effect = ""
+            bg3.fill.effect = ""
         else
             physics:pause()
-            player:removeEventListener( "tap", fireBullet )
-            player:removeEventListener( "touch", dragPlayer )
-            timer.cancel(gameLoopTimer)
-            resume = display.newText("Paused, tap pause button to resume", display.contentCenterX, display.contentCenterY, "KGDoYouLoveMe.ttf", 30 )
-            resume:setFillColor(0,0,0)
+            player:removeEventListener( "tap", fireBullet ) --impedisce al giocatore di poter sparare
+            player:removeEventListener( "touch", dragPlayer ) --impedisce al giocatore di muovere la navicella
+            timer.cancel(gameLoopTimer) --annulla la funzione che genera nemici.
+            resume = display.newText("Game paused", display.contentCenterX, display.contentCenterY-50, "Riffic.ttf", 50 )
+            resume:setFillColor(255,0,0)
+            resume2 = display.newText("tap on lives/score to resume", display.contentCenterX, display.contentCenterY, "Riffic.ttf", 30 )
+            resume2:setFillColor(255,0,0)
+            mainMenu = display.newText("Main Menu", display.contentCenterX, display.contentCenterY+200, "Riffic.ttf", 50)
+            mainMenu:setFillColor(255,0,0)
+            mainMenu:addEventListener("tap", goToMenu)
+            bg1.fill.effect = "filter.grayscale"
+            bg2.fill.effect = "filter.grayscale"
+            bg3.fill.effect = "filter.grayscale"
         end
     end
 end
@@ -291,21 +311,22 @@ function scene:create( event )
     player.myName = "player"
  
     -- Display lives and score
-    livesText = display.newText( uiGroup, "Lives: " .. lives, 220, 80, "KGDoYouLoveMe.ttf", 36 )
+    livesText = display.newText( uiGroup, "Lives: " .. lives, display.contentCenterX, 80, "Riffic.ttf", 36 )
     livesText:setFillColor(0,0,0)
-	scoreText = display.newText( uiGroup, "Score: " .. score, 500, 80, "KGDoYouLoveMe.ttf", 36 )
+	scoreText = display.newText( uiGroup, "Score: " .. score, display.contentCenterX, 116, "Riffic.ttf", 36 )
     scoreText:setFillColor(0,0,0)
     
     
 	player:addEventListener( "tap", fireBullet )
     player:addEventListener( "touch", dragPlayer )
 
-    button = display.newImageRect(mainGroup, "pause.png", 60, 60)
+    --[[button = display.newImageRect(mainGroup, "pause.png", 60, 60)
     button.x = display.contentCenterX
     button.y = 80
-    button.myName = "button"
+    button.myName = "button"]]--
 
-    button:addEventListener( "touch", pauseFunction )
+    livesText:addEventListener( "touch", pauseFunction )
+    scoreText:addEventListener( "touch", pauseFunction )
 
     thirdDeathSound=audio.loadSound("audio/death3.wav")
     death=audio.loadSound("audio/death.wav")
@@ -316,7 +337,7 @@ function scene:create( event )
 end
 
 local function move(event)
-	-- move backgrounds to the left by scrollSpeed, default is 2
+    -- move backgrounds to the left by scrollSpeed, default is 2
 	bg1.y = bg1.y + scrollSpeed
 	bg2.y = bg2.y + scrollSpeed
 	bg3.y = bg3.y + scrollSpeed
@@ -350,7 +371,7 @@ function scene:show( event )
 		-- Code here runs when the scene is entirely on screen
 		physics.start()
         Runtime:addEventListener( "collision", onCollision )
-        gameLoopTimer = timer.performWithDelay( 1000, gameLoop, 0 )
+        gameLoopTimer = timer.performWithDelay( 800, gameLoop, 0 )
 
 	end
 end
@@ -369,6 +390,7 @@ function scene:hide( event )
     elseif ( phase == "did" ) then
         -- Code here runs immediately after the scene goes entirely off screen
         Runtime:removeEventListener( "collision", onCollision )
+        Runtime:removeEventListener("enterFrame", move)
         physics.pause()
         composer.removeScene( "game" )
     end
