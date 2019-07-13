@@ -60,6 +60,19 @@ local function createEnemy()
     newEnemy:applyTorque( math.random( -6,6 ) )
 end
 
+local function createBonusEnemy()
+    -- local redCollisionFilter = { groupIndex = -2 }
+    local newEnemy = display.newImageRect( mainGroup, "sun.png", 90, 90 )
+    table.insert( enemyTable, newEnemy )
+    physics.addBody( newEnemy, "dynamic", { radius=40, bounce=0} ) -- , filter = {maskBits = 2, categoryBits = 2}
+    newEnemy.myName = "bonusEnemy"
+
+    newEnemy.x = math.random( display.contentWidth - 120 )
+    newEnemy.y = -60
+    newEnemy:setLinearVelocity( math.random( -20,20 ), math.random( 150,400 ) )
+
+    newEnemy:applyTorque( math.random( -6,6 ) )
+end
 
 local function fireBullet()
  
@@ -123,6 +136,26 @@ local function gameLoop()
     end
 end
 
+local function bonusGameLoop()
+
+    --create new enemy
+    createBonusEnemy()
+
+    -- Remove asteroids which have drifted off screen
+    for i = #enemyTable, 1 , -1 do
+        local thisEnemy = enemyTable[i]
+ 
+        if ( thisEnemy.x < -100 or
+             thisEnemy.x > display.contentWidth + 100 or
+             thisEnemy.y < -100 or
+             thisEnemy.y > display.contentHeight - 50)
+        then
+            display.remove( thisEnemy )
+            table.remove( enemyTable, i )
+        end
+    end
+end
+
 
 local function restorePlayer()
  
@@ -171,9 +204,32 @@ local function onCollision( event )
             score = score + 100
             scoreText.text = "Score: " .. score
 
+        elseif( (obj1.myName == "bullet" and obj2.myName == "bonusEnemy") or
+                (obj1.myName == "bonusEnemy" and obj2.myName == "bullet"))
+                then 
+                    audio.play(explosion)
+                    --remove both the bullet and enemy
+                    display.remove(obj1)
+                    display.remove(obj2)
 
-        elseif ( ( obj1.myName == "player" and obj2.myName == "enemy" ) or
-            ( obj1.myName == "enemy" and obj2.myName == "player" ) )   
+                    for i = #enemyTable, 1, -1 do
+                        if ( enemyTable[i] == obj1 or enemyTable[i] == obj2 ) then
+                            table.remove( enemyTable, i )
+                            break
+                        end
+                    end
+
+                     -- Increase score
+            score = score + 800
+            scoreText.text = "Score: " .. score
+
+       
+
+
+        elseif  ( ( obj1.myName == "player" and obj2.myName == "enemy" ) or
+            ( obj1.myName == "enemy" and obj2.myName == "player" ) or 
+            ( obj1.myName == "player" and obj2.myName == "bonusEnemy" ) or
+            ( obj1.myName == "bonusEnemy" and obj2.myName == "player" ) )   
         then
             if ( died == false ) then
                 died = true
@@ -213,6 +269,7 @@ local function pauseFunction(event)
             player:addEventListener( "tap", fireBullet )
             player:addEventListener( "touch", dragPlayer )
             gameLoopTimer = timer.performWithDelay( 1000, gameLoop, 0 ) --ripristina lo spawn dei nemici
+            bonusGameLoopTimer = timer.performWithDelay( 15000, bonusGameLoop, 0)
             display.remove(resume) --rimuove la scritta di pausa
             display.remove(resume2)
             display.remove(mainMenu)
@@ -224,6 +281,7 @@ local function pauseFunction(event)
             player:removeEventListener( "tap", fireBullet ) --impedisce al giocatore di poter sparare
             player:removeEventListener( "touch", dragPlayer ) --impedisce al giocatore di muovere la navicella
             timer.cancel(gameLoopTimer) --annulla la funzione che genera nemici.
+            timer.cancel(bonusGameLoopTimer)
             resume = display.newText("Game paused", display.contentCenterX, display.contentCenterY-50, "Riffic.ttf", 50 )
             resume:setFillColor(255,0,0)
             resume2 = display.newText("tap on lives/score to resume", display.contentCenterX, display.contentCenterY, "Riffic.ttf", 30 )
@@ -365,13 +423,14 @@ function scene:show( event )
 	local phase = event.phase
 
 	if ( phase == "will" ) then
-		-- Code here runs when the scene is still off screen (but is about to come on screen)
+        -- Code here runs when the scene is still off screen (but is about to come on screen)
 
 	elseif ( phase == "did" ) then
 		-- Code here runs when the scene is entirely on screen
 		physics.start()
         Runtime:addEventListener( "collision", onCollision )
         gameLoopTimer = timer.performWithDelay( 800, gameLoop, 0 )
+        bonusGameLoopTimer = timer.performWithDelay( 15000, bonusGameLoop, 0)
 
 	end
 end
@@ -386,6 +445,7 @@ function scene:hide( event )
 	if ( phase == "will" ) then
         -- Code here runs when the scene is on screen (but is about to go off screen)
         timer.cancel( gameLoopTimer )
+        timer.cancel(bonusGameLoopTimer)
  
     elseif ( phase == "did" ) then
         -- Code here runs immediately after the scene goes entirely off screen
