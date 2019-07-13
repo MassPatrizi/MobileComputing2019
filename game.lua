@@ -69,7 +69,7 @@ local function createBonusEnemy()
 
     newEnemy.x = math.random( display.contentWidth - 120 )
     newEnemy.y = -60
-    newEnemy:setLinearVelocity( math.random( -20,20 ), math.random( 150,400 ) )
+    newEnemy:setLinearVelocity( math.random( -20,20 ), math.random( 400,600 ) )
 
     newEnemy:applyTorque( math.random( -6,6 ) )
 end
