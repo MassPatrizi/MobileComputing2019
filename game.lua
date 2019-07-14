@@ -57,6 +57,12 @@ local function createEnemy()
     newEnemy.y = -60
     newEnemy:setLinearVelocity( math.random( -20,20 ), math.random( 150,400 ) )
 
+    if(score>2000) then
+        newEnemy:setLinearVelocity( math.random( -20,20 ), math.random( 250,450 ) )
+    elseif(score>10000) then
+        newEnemy:setLinearVelocity( math.random( -20,20 ), math.random( 350,600 ) )
+    end
+
     newEnemy:applyTorque( math.random( -6,6 ) )
 end
 
@@ -276,6 +282,7 @@ local function pauseFunction(event)
             bg1.fill.effect = ""
             bg2.fill.effect = ""
             bg3.fill.effect = ""
+            scrollSpeed = 2
         else
             physics:pause()
             player:removeEventListener( "tap", fireBullet ) --impedisce al giocatore di poter sparare
@@ -283,15 +290,16 @@ local function pauseFunction(event)
             timer.cancel(gameLoopTimer) --annulla la funzione che genera nemici.
             timer.cancel(bonusGameLoopTimer)
             resume = display.newText("Game paused", display.contentCenterX, display.contentCenterY-50, "Riffic.ttf", 50 )
-            resume:setFillColor(255,0,0)
+            resume:setFillColor(255,255,0)
             resume2 = display.newText("tap on lives/score to resume", display.contentCenterX, display.contentCenterY, "Riffic.ttf", 30 )
-            resume2:setFillColor(255,0,0)
+            resume2:setFillColor(255,255,0)
             mainMenu = display.newText("Main Menu", display.contentCenterX, display.contentCenterY+200, "Riffic.ttf", 50)
-            mainMenu:setFillColor(255,0,0)
+            mainMenu:setFillColor(255,255,0)
             mainMenu:addEventListener("tap", goToMenu)
             bg1.fill.effect = "filter.grayscale"
             bg2.fill.effect = "filter.grayscale"
             bg3.fill.effect = "filter.grayscale"
+            scrollSpeed = 0.5
         end
     end
 end
@@ -370,9 +378,9 @@ function scene:create( event )
  
     -- Display lives and score
     livesText = display.newText( uiGroup, "Lives: " .. lives, display.contentCenterX, 80, "Riffic.ttf", 36 )
-    livesText:setFillColor(0,0,0)
+    livesText:setFillColor(255,255,0)
 	scoreText = display.newText( uiGroup, "Score: " .. score, display.contentCenterX, 116, "Riffic.ttf", 36 )
-    scoreText:setFillColor(0,0,0)
+    scoreText:setFillColor(255,255,0)
     
     
 	player:addEventListener( "tap", fireBullet )
