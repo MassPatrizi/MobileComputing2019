@@ -82,7 +82,7 @@ end
 
 local function createHealthUp()
     -- local redCollisionFilter = { groupIndex = -2 }
-    local healthUp = display.newImageRect( mainGroup, "health.png", 70, 70 )
+    local healthUp = display.newImageRect( mainGroup, "planetHealth.png", 100, 100 )
     table.insert( enemyTable, healthUp )
     physics.addBody( healthUp, "dynamic", { radius=40, bounce=0} ) -- , filter = {maskBits = 2, categoryBits = 2}
     healthUp.myName = "healthUp"
@@ -423,7 +423,7 @@ function scene:create( event )
     --physics.addBody( topWall, "static", {bounce = 0.0, friction = 2} )
     physics.addBody( bottomWall, "static", { isSensor=true }, {bounce = 0.0, friction = 2} )
 
-    player = display.newImageRect( mainGroup, "spaceship.png", 128, 128 )
+    player = display.newImageRect( mainGroup, "rocket.png", 180, 180 )
     player.x = display.contentCenterX
     player.y = display.contentHeight - 100
     physics.addBody( player, "dynamic", { radius=60, isSensor=false} )
