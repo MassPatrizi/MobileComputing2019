@@ -23,9 +23,19 @@ local function gotoGame()
 	composer.gotoScene( "game" , { time=800, effect="crossFade"})
 end
  
-local function gotoHighScores()
+local function gotoHowToPlay()
 	audio.play(highScoresSound)
+    composer.gotoScene( "howtoplay" , { time=800, effect="crossFade" } )
+end
+
+local function gotoHighScores()
+	audio.play(playSound)
     composer.gotoScene( "highscores" , { time=800, effect="crossFade" } )
+end
+
+local function gotoCredits()
+	audio.play(playSound)
+    composer.gotoScene( "credits" , { time=800, effect="crossFade" } )
 end
 
 -- create()
@@ -66,12 +76,20 @@ local title = display.newImageRect( sceneGroup, "title.png", 400, 200)
 
 local playButton = display.newText( sceneGroup, "Play", display.contentCenterX, 600, "Riffic.ttf", 44 )
 playButton:setFillColor( 0.82, 0.86, 1 )
- 
-local highScoresButton = display.newText( sceneGroup, "High Scores", display.contentCenterX, 700, "Riffic.ttf", 44 )
+
+local howToPlayButton = display.newText( sceneGroup, "How to Play", display.contentCenterX, 700, "Riffic.ttf", 44 )
+howToPlayButton:setFillColor( 0.82, 0.86, 1 )
+
+local highScoresButton = display.newText( sceneGroup, "High Scores", display.contentCenterX, 800, "Riffic.ttf", 44 )
 highScoresButton:setFillColor( 0.82, 0.86, 1 )
+
+local creditsButton = display.newText( sceneGroup, "Credits", display.contentCenterX, 900, "Riffic.ttf", 44 )
+creditsButton:setFillColor( 0.82, 0.86, 1 )
 	
 playButton:addEventListener( "tap", gotoGame)
+howToPlayButton:addEventListener( "tap", gotoHowToPlay)
 highScoresButton:addEventListener( "tap", gotoHighScores)
+creditsButton:addEventListener( "tap", gotoCredits)
 	
 end
 
