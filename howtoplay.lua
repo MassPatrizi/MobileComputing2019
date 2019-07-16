@@ -31,10 +31,22 @@ function scene:create( event )
 
     local x = 300;
 
-    local title1 = display.newText( sceneGroup, "How To Play", display.contentCenterX, x - 100, "Riffic.ttf", 44 )
+    local title1 = display.newText( sceneGroup, "HOW TO PLAY", display.contentCenterX, x - 100, "Riffic.ttf", 60 )
     title1:setFillColor( 0.75, 0.78, 1 )
 
-    local credits01 = display.newText( sceneGroup, "In order to play this game you need to do...", display.contentCenterX, x, "Riffic.ttf", 22 )
+    local credits01 = display.newText( sceneGroup, "Shoot the asteroids to gain 100 points", display.contentCenterX, x+60, "Riffic.ttf", 25 )
+	credits01:setFillColor(0.75, 0.78, 1 )
+	
+	local credits01 = display.newText( sceneGroup, "Shoot the sun to gain 800 points", display.contentCenterX, x+120, "Riffic.ttf", 25 )
+	credits01:setFillColor(0.75, 0.78, 1 )
+	
+	local credits01 = display.newText( sceneGroup, "Gain HP up by picking up the Planets", display.contentCenterX, x+180, "Riffic.ttf", 25 )
+	credits01:setFillColor(0.75, 0.78, 1 )
+	
+	local credits01 = display.newText( sceneGroup, "To pause the game, tap on lives/score\n      in the upper side of the screen", display.contentCenterX, x+240, "Riffic.ttf", 25 )
+	credits01:setFillColor(0.75, 0.78, 1 )
+	
+	local credits01 = display.newText( sceneGroup, "Enjoy our game!", display.contentCenterX, x+370, "Riffic.ttf", 35 )
     credits01:setFillColor(0.75, 0.78, 1 )
 
 	local menuButton = display.newText( sceneGroup, "Menu", display.contentCenterX, x + 500, "Riffic.ttf", 44 )
