@@ -381,11 +381,6 @@ function scene:create( event )
  
     uiGroup = display.newGroup()    -- Display group for UI objects like the score
 	sceneGroup:insert( uiGroup )    -- Insert into the scene's view group
-	
-	-- Load the background
-    --local background = display.newImageRect( backGroup, "gamebg.png", 800, 1400 )
-    --background.x = display.contentCenterX
-    --background.y = display.contentCenterY
 
     -- Set Variables
     _W = display.contentWidth -- Get the width of the screen
@@ -411,10 +406,10 @@ function scene:create( event )
     local centerX = display.contentCenterX
     local centerY = display.contentCenterY
 
-    local leftWall = display.newRect( -60, centerY, wallWidth, fullh )
-    local rightWall = display.newRect( fullw+60, centerY, wallWidth, fullh )
+    local leftWall = display.newRect( -120, centerY, wallWidth, fullh )
+    local rightWall = display.newRect( fullw+120, centerY, wallWidth, fullh )
     --local topWall = display.newRect( centerX, 0-wallWidth/2, fullw, wallWidth )
-    local bottomWall = display.newRect( centerX, fullh+wallWidth/2, fullw, wallWidth )
+    local bottomWall = display.newRect( centerX, fullh+wallWidth/2+120, fullw, wallWidth )
 
     local redCollisionFilter = { groupIndex = -2 }
 
@@ -438,11 +433,6 @@ function scene:create( event )
     
 	player:addEventListener( "tap", fireBullet )
     player:addEventListener( "touch", dragPlayer )
-
-    --[[button = display.newImageRect(mainGroup, "pause.png", 60, 60)
-    button.x = display.contentCenterX
-    button.y = 80
-    button.myName = "button"]]--
 
     livesText:addEventListener( "touch", pauseFunction )
     scoreText:addEventListener( "touch", pauseFunction )
