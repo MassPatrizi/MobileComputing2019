@@ -54,7 +54,7 @@ local function createEnemy()
     physics.addBody( newEnemy, "dynamic", { radius=40, bounce=0} ) -- , filter = {maskBits = 2, categoryBits = 2}
     newEnemy.myName = "enemy"
 
-    newEnemy.x = math.random( display.contentWidth - 120 )
+    newEnemy.x = math.random( display.contentWidth - 120)
     newEnemy.y = -60
     newEnemy:setLinearVelocity( math.random( -20,20 ), math.random( 150,400 ) )
 
@@ -128,7 +128,6 @@ local function dragPlayer(event)
             -- Move the player to the new touch position
             player.x = event.x - player.touchOffsetX
             player.y = event.y - player.touchOffsetY
-
     elseif ( "ended" == phase or "cancelled" == phase ) then
             -- Release touch focus on the player
             display.currentStage:setFocus( nil )
@@ -331,7 +330,7 @@ local function pauseFunction(event)
             --bg3:addEventListener( "tap", fireBullet )
             player:addEventListener( "tap", fireBullet )
             player:addEventListener( "touch", dragPlayer )
-            gameLoopTimer = timer.performWithDelay( 800, gameLoop, 0 ) --ripristina lo spawn dei nemici
+            gameLoopTimer = timer.performWithDelay( 500, gameLoop, 0 ) --ripristina lo spawn dei nemici
             bonusGameLoopTimer = timer.performWithDelay( 15000, bonusGameLoop, 0)
             healthGameLoopTimer = timer.performWithDelay( 20000, healthGameLoop, 0)
             display.remove(resume) --rimuove la scritta di pausa
@@ -355,7 +354,7 @@ local function pauseFunction(event)
             resume:setFillColor(255,255,0)
             resume2 = display.newText("tap on lives/score to resume", display.contentCenterX, display.contentCenterY, "Riffic.ttf", 30 )
             resume2:setFillColor(255,255,0)
-            mainMenu = display.newText("Main Menu", display.contentCenterX, display.contentCenterY+200, "Riffic.ttf", 50)
+            mainMenu = display.newText("Main Menu", display.contentCenterX, display.contentCenterY+300, "Riffic.ttf", 50)
             mainMenu:setFillColor(255,255,0)
             mainMenu:addEventListener("tap", goToMenu)
             bg1.fill.effect = "filter.grayscale"
@@ -430,7 +429,8 @@ function scene:create( event )
     player = display.newImageRect( mainGroup, "rocketfixed.png", 119, 180 )
     player.x = display.contentCenterX
     player.y = display.contentHeight - 100
-    physics.addBody( player, "dynamic", { radius=60, isSensor=false}, { density =3, friction=0, bounce=0} )
+    physics.addBody( player, "dynamic", { density = 100, radius=60, isSensor=false} )
+    player.isFixedRotation = true
     player.myName = "player"
  
     -- Display lives and score
@@ -493,7 +493,7 @@ function scene:show( event )
 		-- Code here runs when the scene is entirely on screen
 		physics.start()
         Runtime:addEventListener( "collision", onCollision )
-        gameLoopTimer = timer.performWithDelay( 800, gameLoop, 0 )
+        gameLoopTimer = timer.performWithDelay( 500, gameLoop, 0 )
         bonusGameLoopTimer = timer.performWithDelay( 15000, bonusGameLoop, 0)
         healthGameLoopTimer = timer.performWithDelay( 20000, healthGameLoop, 0)
 
