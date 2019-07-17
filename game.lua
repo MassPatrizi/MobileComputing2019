@@ -7,6 +7,7 @@ local thirdDeathSound
 local death
 local shot
 local explosion
+local healthup
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
@@ -267,6 +268,7 @@ local function onCollision( event )
         elseif((obj1.myName == "healthUp" and obj2.myName == "player") or
                 (obj1.myName == "player" and obj2.myName == "healthUp"))
                 then
+                    audio.play(healthup)
                     lives = lives + 1
                     livesText.text = "Lives: " .. lives
 
@@ -451,6 +453,7 @@ function scene:create( event )
     death=audio.loadSound("audio/death.wav")
     shot=audio.loadSound("audio/shot.wav")
     explosion=audio.loadSound("audio/explosion.wav")
+    healthup=audio.loadSound("audio/healthup.wav")
 
     
 end
