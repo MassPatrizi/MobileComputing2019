@@ -449,11 +449,11 @@ function scene:create( event )
     livesText:addEventListener( "touch", pauseFunction )
     scoreText:addEventListener( "touch", pauseFunction )
 
-    thirdDeathSound=audio.loadSound("audio/death3.wav")
-    death=audio.loadSound("audio/death.wav")
-    shot=audio.loadSound("audio/shot.wav")
-    explosion=audio.loadSound("audio/explosion.wav")
-    healthup=audio.loadSound("audio/healthup.wav")
+    thirdDeathSound=audio.loadSound("death3.wav")
+    death=audio.loadSound("death.wav")
+    shot=audio.loadSound("shot.wav")
+    explosion=audio.loadSound("explosion.wav")
+    healthup=audio.loadSound("healthup.wav")
 
     
 end
