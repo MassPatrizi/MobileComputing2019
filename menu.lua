@@ -75,16 +75,16 @@ local title = display.newImageRect( sceneGroup, "title.png", 400, 200)
 
 
 local playButton = display.newText( sceneGroup, "Play", display.contentCenterX, 500, "Riffic.ttf", 44 )
-playButton:setFillColor( 0.82, 0.86, 1 )
+playButton:setFillColor( 255, 255, 255 )
 
 local highScoresButton = display.newText( sceneGroup, "High Scores", display.contentCenterX, 600, "Riffic.ttf", 44 )
-highScoresButton:setFillColor( 0.82, 0.86, 1 )
+highScoresButton:setFillColor( 255, 255, 255 )
 
 local howToPlayButton = display.newText( sceneGroup, "How to Play", display.contentCenterX, 700, "Riffic.ttf", 44 )
-howToPlayButton:setFillColor( 0.82, 0.86, 1 )
+howToPlayButton:setFillColor( 255, 255, 255 )
 
 local creditsButton = display.newText( sceneGroup, "Credits", display.contentCenterX, 800, "Riffic.ttf", 44 )
-creditsButton:setFillColor( 0.82, 0.86, 1 )
+creditsButton:setFillColor( 255, 255, 255 )
 	
 playButton:addEventListener( "tap", gotoGame)
 howToPlayButton:addEventListener( "tap", gotoHowToPlay)

@@ -1,4 +1,4 @@
-
+system.activate( "multitouch" )
 local composer = require( "composer" )
 
 local scene = composer.newScene()
@@ -114,6 +114,7 @@ end
 local function dragPlayer(event)
     local player = event.target
     local phase = event.phase
+    
 
     if ( "began" == phase ) then
         -- Set touch focus on the player
@@ -323,9 +324,12 @@ local function pauseFunction(event)
         isPlay = not isPlay
         if isPlay then
             physics:start()
+            --bg1:addEventListener( "tap", fireBullet )
+            --bg2:addEventListener( "tap", fireBullet )
+            --bg3:addEventListener( "tap", fireBullet )
             player:addEventListener( "tap", fireBullet )
             player:addEventListener( "touch", dragPlayer )
-            gameLoopTimer = timer.performWithDelay( 1000, gameLoop, 0 ) --ripristina lo spawn dei nemici
+            gameLoopTimer = timer.performWithDelay( 800, gameLoop, 0 ) --ripristina lo spawn dei nemici
             bonusGameLoopTimer = timer.performWithDelay( 15000, bonusGameLoop, 0)
             healthGameLoopTimer = timer.performWithDelay( 20000, healthGameLoop, 0)
             display.remove(resume) --rimuove la scritta di pausa
@@ -337,7 +341,10 @@ local function pauseFunction(event)
             scrollSpeed = 2
         else
             physics:pause()
-            player:removeEventListener( "tap", fireBullet ) --impedisce al giocatore di poter sparare
+            --bg1:removeEventListener( "tap", fireBullet ) --impedisce al giocatore di poter sparare
+            --bg2:removeEventListener( "tap", fireBullet )
+            --bg3:removeEventListener( "tap", fireBullet )
+            player:removeEventListener( "tap", fireBullet )
             player:removeEventListener( "touch", dragPlayer ) --impedisce al giocatore di muovere la navicella
             timer.cancel(gameLoopTimer) --annulla la funzione che genera nemici.
             timer.cancel(bonusGameLoopTimer)
@@ -418,10 +425,10 @@ function scene:create( event )
     --physics.addBody( topWall, "static", {bounce = 0.0, friction = 2} )
     physics.addBody( bottomWall, "static", { isSensor=true }, {bounce = 0.0, friction = 2} )
 
-    player = display.newImageRect( mainGroup, "rocket.png", 180, 180 )
+    player = display.newImageRect( mainGroup, "rocketfixed.png", 119, 180 )
     player.x = display.contentCenterX
     player.y = display.contentHeight - 100
-    physics.addBody( player, "dynamic", { radius=60, isSensor=false} )
+    physics.addBody( player, "dynamic", { radius=60, isSensor=false}, { density =3, friction=0, bounce=0} )
     player.myName = "player"
  
     -- Display lives and score
@@ -431,7 +438,10 @@ function scene:create( event )
     scoreText:setFillColor(255,255,0)
     
     
-	player:addEventListener( "tap", fireBullet )
+    --bg1:addEventListener( "tap", fireBullet )
+    --bg2:addEventListener( "tap", fireBullet )
+    --bg3:addEventListener( "tap", fireBullet )
+    player:addEventListener( "tap", fireBullet )
     player:addEventListener( "touch", dragPlayer )
 
     livesText:addEventListener( "touch", pauseFunction )
