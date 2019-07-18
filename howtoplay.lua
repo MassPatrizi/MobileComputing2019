@@ -35,23 +35,26 @@ function scene:create( event )
     local title1 = display.newText( sceneGroup, "HOW TO PLAY", display.contentCenterX, x - 100, "Riffic.ttf", 60 )
     title1:setFillColor( 0.75, 0.78, 1 )
 
-    local htp1 = display.newText( sceneGroup, "Shoot the asteroids to gain 100 points", display.contentCenterX, x+60, "Riffic.ttf", 25 )
-	htp1:setFillColor(0.75, 0.78, 1 )
+	local htp = display.newText(sceneGroup, "Tap the rocket to shoot, drag to move", display.contentCenterX, x, "Riffic.ttf", 25)
+	htp:setFillColor( 255,255,255)
+
+    local htp1 = display.newText( sceneGroup, "Hit the asteroids to gain 100 points", display.contentCenterX, x+60, "Riffic.ttf", 25 )
+	htp1:setFillColor( 255, 255, 255 )
 	
-	local htp2 = display.newText( sceneGroup, "Shoot the sun to gain 800 points", display.contentCenterX, x+120, "Riffic.ttf", 25 )
-	htp2:setFillColor(0.75, 0.78, 1 )
+	local htp2 = display.newText( sceneGroup, "Hit the sun to gain 800 points", display.contentCenterX, x+120, "Riffic.ttf", 25 )
+	htp2:setFillColor( 255, 255, 255 )
 	
 	local htp3 = display.newText( sceneGroup, "Gain HP up by picking up the Planets", display.contentCenterX, x+180, "Riffic.ttf", 25 )
-	htp3:setFillColor(0.75, 0.78, 1 )
+	htp3:setFillColor( 255, 255, 255 )
 	
 	local htp4 = display.newText( sceneGroup, "To pause the game, tap on lives/score\n      in the upper side of the screen", display.contentCenterX, x+240, "Riffic.ttf", 25 )
-	htp4:setFillColor(0.75, 0.78, 1 )
+	htp4:setFillColor( 255, 255, 255 )
 	
 	local htp5 = display.newText( sceneGroup, "Higher the score, faster the enemies", display.contentCenterX, x+370, "Riffic.ttf", 25 )
-	htp5:setFillColor(0.75, 0.78, 1 )
+	htp5:setFillColor( 255, 255, 255 )
 	
 	local htp6 = display.newText( sceneGroup, "Good luck!", display.contentCenterX, x+400, "Riffic.ttf", 25 )
-    htp6:setFillColor(0.75, 0.78, 1 )
+    htp6:setFillColor( 255, 255, 255 )
 
 	local menuButton = display.newText( sceneGroup, "Menu", display.contentCenterX, x + 500, "Riffic.ttf", 44 )
     menuButton:setFillColor( 0.75, 0.78, 1 )

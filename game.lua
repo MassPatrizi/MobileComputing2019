@@ -1,4 +1,4 @@
-system.activate( "multitouch" )
+
 local composer = require( "composer" )
 
 local scene = composer.newScene()
@@ -303,7 +303,7 @@ local function onCollision( event )
                 
 
                      -- Update lives
-                     lives = lives - 3
+                     lives = lives - 1
                      livesText.text = "Lives: " .. lives
 
                 if ( lives == 0 ) then
@@ -337,9 +337,6 @@ local function pauseFunction(event)
         isPlay = not isPlay
         if isPlay then
             physics:start()
-            --bg1:addEventListener( "tap", fireBullet )
-            --bg2:addEventListener( "tap", fireBullet )
-            --bg3:addEventListener( "tap", fireBullet )
             player:addEventListener( "tap", fireBullet )
             player:addEventListener( "touch", dragPlayer )
             gameLoopTimer = timer.performWithDelay( 500, gameLoop, 0 ) --ripristina lo spawn dei nemici
@@ -354,9 +351,6 @@ local function pauseFunction(event)
             scrollSpeed = 2
         else
             physics:pause()
-            --bg1:removeEventListener( "tap", fireBullet ) --impedisce al giocatore di poter sparare
-            --bg2:removeEventListener( "tap", fireBullet )
-            --bg3:removeEventListener( "tap", fireBullet )
             player:removeEventListener( "tap", fireBullet )
             player:removeEventListener( "touch", dragPlayer ) --impedisce al giocatore di muovere la navicella
             timer.cancel(gameLoopTimer) --annulla la funzione che genera nemici.
@@ -428,14 +422,12 @@ function scene:create( event )
 
     local leftWall = display.newRect( -120, centerY, wallWidth, fullh )
     local rightWall = display.newRect( fullw+120, centerY, wallWidth, fullh )
-    --local topWall = display.newRect( centerX, 0-wallWidth/2, fullw, wallWidth )
     local bottomWall = display.newRect( centerX, fullh+wallWidth/2+120, fullw, wallWidth )
 
     local redCollisionFilter = { groupIndex = -2 }
 
-    physics.addBody( leftWall, "static", {bounce = 0.0, friction = 2} ) -- filter = {maskBits = 2, categoryBits = 2}
+    physics.addBody( leftWall, "static", {bounce = 0.0, friction = 2} )
     physics.addBody( rightWall, "static", {bounce = 0.0, friction = 2} ) 
-    --physics.addBody( topWall, "static", {bounce = 0.0, friction = 2} )
     physics.addBody( bottomWall, "static", { isSensor=true }, {bounce = 0.0, friction = 2} )
 
     player = display.newImageRect( mainGroup, "rocketfixed.png", 119, 180 )
@@ -451,10 +443,6 @@ function scene:create( event )
 	scoreText = display.newText( uiGroup, "Score: " .. score, display.contentCenterX, 116, "Riffic.ttf", 36 )
     scoreText:setFillColor(255,255,0)
     
-    
-    --bg1:addEventListener( "tap", fireBullet )
-    --bg2:addEventListener( "tap", fireBullet )
-    --bg3:addEventListener( "tap", fireBullet )
     player:addEventListener( "tap", fireBullet )
     player:addEventListener( "touch", dragPlayer )
 

@@ -55,28 +55,9 @@ function scene:create( event )
     background.x = display.contentCenterX
 	background.y = display.contentCenterY
 	
---[[
--- Set Variables
-_W = display.contentWidth -- Get the width of the screen
-_H = display.contentHeight -- Get the height of the screen
-scrollSpeed = 2 -- Set Scroll Speed of background
-	
--- Add First Background
-bg1 = display.newImageRect(sceneGroup, "menubg.jpg", 800, 1400)
-bg1.x = _W*0.5; bg1.y = _H/2
-	
--- Add Second Background
-bg2 = display.newImageRect(sceneGroup, "menubg.jpg", 800, 1400)
-bg2.x = _W*0.5; bg2.y = bg1.y+1400
-	
--- Add Third Background
-bg3 = display.newImageRect(sceneGroup, "menubg.jpg", 800, 1400)
-bg3.x = _W*0.5; bg3.y = bg2.y+1400
-]]--
+
 
 local title = display.newImageRect( sceneGroup, "title.png", 400, 200)
-
---local title = display.newText( sceneGroup, "ENDLESS\n STARS", display.contentCenterX, 700, "Riffic.ttf", 70 )
     title.x = display.contentCenterX
 	title.y = 200
 
@@ -102,30 +83,6 @@ audio.setVolume(0.1, {channel = 1})
 
 	
 end
-
---[[
-local function move(event)
-	-- move backgrounds to the left by scrollSpeed, default is 2
-	bg1.y = bg1.y + scrollSpeed
-	bg2.y = bg2.y + scrollSpeed
-	bg3.y = bg3.y + scrollSpeed
-	
-	-- Set up listeners so when backgrounds hits a certain point off the screen,
-	-- move the background to the right off screen
-	if (bg1.y + bg1.contentWidth) > 2800 then
-	bg1:translate( 0, -2800 )
-	end
-	if (bg2.y + bg2.contentWidth) > 2800 then
-	bg2:translate( 0, -2800 )
-	end
-	if (bg3.y + bg3.contentWidth) > 2800 then
-	bg3:translate( 0, -2800 )
-	end
-end
-	
--- Create a runtime event to move backgrounds
-Runtime:addEventListener( "enterFrame", move )
-]]--
 
 -- show()
 function scene:show( event )
