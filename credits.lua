@@ -3,7 +3,8 @@ local composer = require( "composer" )
 
 local scene = composer.newScene()
 
-local menuSound = audio.loadSound("audio/Videogame_Menu_Button_Clicking_Sounds.wav")
+local menuSound = audio.loadSound("Videogame_Menu_Button_Clicking_Sounds.wav")
+audio.setVolume(2, {channel=3})
 
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
@@ -11,7 +12,7 @@ local menuSound = audio.loadSound("audio/Videogame_Menu_Button_Clicking_Sounds.w
 -- -----------------------------------------------------------------------------------
 
 local function gotoMenu()
-    audio.play(menuSound)
+    audio.play(menuSound, {channel = 3})
     composer.gotoScene( "menu", { time=800, effect="crossFade" } )
 end
 

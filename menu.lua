@@ -2,9 +2,14 @@
 local composer = require( "composer" )
 
 local scene = composer.newScene()
+local menuMusic=audio.loadSound("menuMusic.wav")
+local playSound=audio.loadSound("click_sfx2.wav")
+audio.setVolume(2, {channel=2})
+local highScoresSound=audio.loadSound("Videogame_Menu_Button_Clicking_Sounds.wav")
+audio.setVolume(2, {channel=2})
+local gameMusic = audio.loadSound("gameMusic.wav")
+audio.setVolume(0.1, {channel = 3})
 
-local playSound=audio.loadSound("audio/click_sfx2.wav")
-local highScoresSound=audio.loadSound("audio/Videogame_Menu_Button_Clicking_Sounds.wav")
 
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
@@ -19,22 +24,24 @@ local highScoresSound=audio.loadSound("audio/Videogame_Menu_Button_Clicking_Soun
 -- -----------------------------------------------------------------------------------
 
 local function gotoGame()
-	audio.play(playSound)
+	audio.play(playSound, {channel = 2})
+	audio.stop(1)
+	audio.play(gameMusic, {channel = 3, loops = -1})
 	composer.gotoScene( "game" , { time=800, effect="crossFade"})
 end
  
 local function gotoHowToPlay()
-	audio.play(playSound)
+	audio.play(playSound, {channel = 2})
     composer.gotoScene( "howtoplay" , { time=800, effect="crossFade" } )
 end
 
 local function gotoHighScores()
-	audio.play(playSound)
+	audio.play(playSound, {channel = 2})
     composer.gotoScene( "highscores" , { time=800, effect="crossFade" } )
 end
 
 local function gotoCredits()
-	audio.play(playSound)
+	audio.play(playSound, {channel = 2})
     composer.gotoScene( "credits" , { time=800, effect="crossFade" } )
 end
 
@@ -90,6 +97,9 @@ playButton:addEventListener( "tap", gotoGame)
 howToPlayButton:addEventListener( "tap", gotoHowToPlay)
 highScoresButton:addEventListener( "tap", gotoHighScores)
 creditsButton:addEventListener( "tap", gotoCredits)
+audio.play(menuMusic, {channel = 1, loops = -1})
+audio.setVolume(0.1, {channel = 1})
+
 	
 end
 

@@ -8,6 +8,13 @@ local death
 local shot
 local explosion
 local healthup
+local menuMusic = audio.loadSound("menuMusic.wav")
+local gameMusic = audio.loadSound("gameMusic.wav")
+audio.setVolume(0.1, {channel = 1})
+audio.setVolume(2, {channel = 2})
+audio.setVolume(0.1, {channel = 3})
+
+
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
@@ -267,7 +274,7 @@ local function onCollision( event )
         elseif((obj1.myName == "healthUp" and obj2.myName == "player") or
                 (obj1.myName == "player" and obj2.myName == "healthUp"))
                 then
-                    audio.play(healthup)
+                    audio.play(healthup, {channel = 2})
                     lives = lives + 1
                     livesText.text = "Lives: " .. lives
 
@@ -295,12 +302,14 @@ local function onCollision( event )
                 
 
                      -- Update lives
-                     lives = lives - 1
+                     lives = lives - 3
                      livesText.text = "Lives: " .. lives
 
                 if ( lives == 0 ) then
                     display.remove( player )
-                    audio.play(thirdDeathSound)
+                    audio.play(thirdDeathSound, {channel = 2})
+                    audio.fadeOut({channel = 3, time = 5000})
+                    audio.play(menuMusic, {channel = 1, fadein = 5000})
                     timer.performWithDelay( 2000, endGame )
                 else
                     audio.play(death)
@@ -317,6 +326,8 @@ local function goToMenu()
     display.remove(resume) --rimuove la scritta di pausa
     display.remove(resume2)
     display.remove(mainMenu)
+    audio.fadeOut({channel = 3, time = 2000})
+    audio.play(menuMusic, {channel = 1, fadein = 5000})
 end
 
 local function pauseFunction(event)
@@ -454,6 +465,7 @@ function scene:create( event )
     shot=audio.loadSound("shot.wav")
     explosion=audio.loadSound("explosion.wav")
     healthup=audio.loadSound("healthup.wav")
+
 
     
 end
