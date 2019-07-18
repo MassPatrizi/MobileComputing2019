@@ -10,6 +10,7 @@ local explosion
 local healthup
 local menuMusic = audio.loadSound("menuMusic.wav")
 local gameMusic = audio.loadSound("gameMusic.wav")
+audio.reserveChannels(3)
 audio.setVolume(0.1, {channel = 1})
 audio.setVolume(2, {channel = 2})
 audio.setVolume(0.1, {channel = 3})
